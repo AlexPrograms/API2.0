@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\learning\\programming\\С#\\API\\API\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj": {}
+    "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj": {}
   },
   "projects": {
-    "D:\\learning\\programming\\С#\\API\\API\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj": {
+    "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\learning\\programming\\С#\\API\\API\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
+        "projectUniqueName": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
         "projectName": "MagicVilla_VillaAPI",
-        "projectPath": "D:\\learning\\programming\\С#\\API\\API\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
+        "projectPath": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
         "packagesPath": "C:\\Users\\pasha\\.nuget\\packages\\",
-        "outputPath": "D:\\learning\\programming\\С#\\API\\API\\MagicVilla_VillaAPI\\obj\\",
+        "outputPath": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pasha\\AppData\\Roaming\\NuGet\\NuGet.Config"

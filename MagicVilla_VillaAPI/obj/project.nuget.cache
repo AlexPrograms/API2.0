@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zpSftxDM61UAkzI34u2r4s1wAB3Nzpu7SMGZSXJOT1ntaNosa/uMTKKzzmIUg8gxDZ09KUQcv/pUOUlDhSWxXA==",
+  "dgSpecHash": "9ILCHM7VqQeONOWtbVSJtTvZU64OB6Av3+rrS+tEoqg1SRZtj4aTKjcB70mQG+R+q+eDp1hwr9t2xcVIEsed6g==",
   "success": true,
-  "projectFilePath": "D:\\learning\\programming\\С#\\API\\API\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
+  "projectFilePath": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pasha\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\pasha\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
