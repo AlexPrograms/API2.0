@@ -1,18 +1,18 @@
 ﻿using MagicVilla_VillaAPI.Data;
-using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.DTO;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MagicVilla_VillaAPI.Controllers;
 
 [ApiController]
-[Route("api/VillaAPI")]
-public class VillaAPIController : Controller
+[Route("api/CarAPI")]
+public class CarAPIController : Controller
 {
-    private readonly ILogger<VillaAPIController> _logger;
+        private readonly ILogger<CarAPIController> _logger;
 
-    public VillaAPIController(ILogger<VillaAPIController> logger)
+    public CarAPIController(ILogger<CarAPIController> logger)
     {
         _logger = logger;
     }
@@ -20,31 +20,30 @@ public class VillaAPIController : Controller
     
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<IEnumerable<VillaDTO>> GetVillas()
+    public ActionResult<IEnumerable<CarDTO>> GetCars()
     {
-        _logger.LogInformation("Getting all villas");
-        return Ok(VillaStore.villaList);
+        _logger.LogInformation("Getting all cars");
+        return Ok(CarStore.carList);
     }
     
-    [HttpGet("{id:int}", Name = "GetVilla")]
+    [HttpGet("{id:int}", Name = "GetCar")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public ActionResult<VillaDTO> GetVilla(int id)
+    public ActionResult<CarDTO> GetCar(int id)
     {
         if (id==0)
         {
-            _logger.LogError("Get villa error with id" + id);
+            _logger.LogError("Get car error with id" + id);
             return BadRequest();
         }
 
-        var villa = VillaStore.villaList.FirstOrDefault(u => u.Id == id);
-        if (villa==null)
+        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        if (car==null)
         {
             return NotFound();
         }
-        return Ok(villa);
+        return Ok(car);
     }
 
     [HttpPost]
@@ -53,47 +52,45 @@ public class VillaAPIController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public ActionResult<VillaDTO> CreateVilla([FromBody]VillaDTO villaDto)
+    public ActionResult<CarDTO> CreateVilla([FromBody]CarDTO carDto)
     {
-        if (VillaStore.villaList.FirstOrDefault(u=>u.Name.ToLower()==villaDto.Name.ToLower()) != null)
+        if (CarStore.carList.FirstOrDefault(u=>u.Model.ToLower()==carDto.Model.ToLower()) != null)
         {
             ModelState.AddModelError("CustomError","Villa already Exists!");
             return BadRequest(ModelState);
         }
-        if (villaDto == null)
+        if (carDto == null)
         {
-            return BadRequest(villaDto);
+            return BadRequest(carDto);
         }
 
-        if (villaDto.Id >0)
+        if (carDto.Id >0)
         {
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        villaDto.Id = VillaStore.villaList.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
-        VillaStore.villaList.Add(villaDto);
-        return CreatedAtRoute("GetVilla", new { id = villaDto.Id }, villaDto);
+        carDto.Id = CarStore.carList.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
+        CarStore.carList.Add(carDto);
+        return CreatedAtRoute("GetCar", new { id = carDto.Id }, carDto);
     }
 
-    [HttpDelete("{id:int}", Name = "DeleteVilla")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [HttpDelete("{id:int}", Name = "DeleteCar")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult DeleteVilla(int id)
+    public IActionResult DeleteCar(int id)
     {
         if (id == 0)
         {
             return BadRequest();
         }
-        var villa = VillaStore.villaList.FirstOrDefault(u => u.Id == id);
-        if (villa == null)
+        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        if (car == null)
         {
             return NotFound();
         }
 
-        VillaStore.villaList.Remove(villa);
+        CarStore.carList.Remove(car);
         return NoContent();
     }
 
@@ -101,36 +98,36 @@ public class VillaAPIController : Controller
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult UpdateVilla(int id, [FromBody] VillaDTO villaDto)
+    public IActionResult UpdateCar(int id, [FromBody] CarDTO carDto)
     {
-        if (villaDto == null || id != villaDto.Id)
+        if (carDto == null || id != carDto.Id)
         {
             return BadRequest();
         }
-        var villa = VillaStore.villaList.FirstOrDefault(u => u.Id == id);
-        villa.Name = villaDto.Name;
-        villa.Sqft = villaDto.Sqft;
-        villa.Occupancy = villaDto.Occupancy;
+        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        car.Model = carDto.Model;
+        car.Brand = carDto.Brand;
+        car.Price = carDto.Price;
         return NoContent();
     }
 
-    [HttpPatch("{id:int}", Name = "UpdatePartialVilla")]
+    [HttpPatch("{id:int}", Name = "UpdatePartialCar")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult UpdatePartialVilla(int id, JsonPatchDocument<VillaDTO> patchDTO)
+    public IActionResult UpdatePartialCar(int id, JsonPatchDocument<CarDTO> patchDTO)
     {
         if (patchDTO == null || id ==0)
         {
             return BadRequest();
         }
         
-        var villa = VillaStore.villaList.FirstOrDefault(u => u.Id == id);
-        if (villa == null)
+        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        if (car == null)
         {
             return BadRequest();
         }
         
-        patchDTO.ApplyTo(villa, ModelState);
+        patchDTO.ApplyTo(car, ModelState);
         if (!ModelState.IsValid)
         {
             return BadRequest();
