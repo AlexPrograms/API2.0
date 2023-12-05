@@ -1,4 +1,5 @@
 ﻿using MagicVilla_VillaAPI.Data;
+using MagicVilla_VillaAPI.Logging;
 using MagicVilla_VillaAPI.Models.DTO;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -10,9 +11,9 @@ namespace MagicVilla_VillaAPI.Controllers;
 [Route("api/CarAPI")]
 public class CarAPIController : Controller
 {
-        private readonly ILogger<CarAPIController> _logger;
+        private readonly ILogging _logger;
 
-    public CarAPIController(ILogger<CarAPIController> logger)
+    public CarAPIController(ILogging logger)
     {
         _logger = logger;
     }
@@ -22,7 +23,7 @@ public class CarAPIController : Controller
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<CarDTO>> GetCars()
     {
-        _logger.LogInformation("Getting all cars");
+        _logger.Log("Getting all cars","");
         return Ok(CarStore.carList);
     }
     
@@ -34,7 +35,7 @@ public class CarAPIController : Controller
     {
         if (id==0)
         {
-            _logger.LogError("Get car error with id" + id);
+            _logger.Log("Get car error with id" + id, "error");
             return BadRequest();
         }
 
