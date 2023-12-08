@@ -11,10 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 //     .File("log/carLogs.txt", rollingInterval: RollingInterval.Day).CreateLogger();
 // builder.Host.UseSerilog();
 
-// builder.Services.AddDbContext<AppDbContext>(option =>
-// {
-//     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
-// });
+builder.Services.AddDbContext<ApplicationDbContext>(option =>
+{
+     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
+});
 
 builder.Services.AddSingleton<ILogging, LoggingV2>();
 builder.Services.AddControllers(option =>

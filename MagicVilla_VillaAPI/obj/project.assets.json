@@ -4144,25 +4144,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pasha\\.nuget\\packages\\": {}
+    "C:\\Users\\Aganim\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Aganim\\Source\\Repos\\AlexPrograms\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
       "projectName": "MagicVilla_VillaAPI",
-      "projectPath": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
-      "packagesPath": "C:\\Users\\pasha\\.nuget\\packages\\",
-      "outputPath": "D:\\learning\\programming\\С#\\API\\API2.0\\MagicVilla_VillaAPI\\obj\\",
+      "projectPath": "C:\\Users\\Aganim\\Source\\Repos\\AlexPrograms\\API2.0\\MagicVilla_VillaAPI\\MagicVilla_VillaAPI.csproj",
+      "packagesPath": "C:\\Users\\Aganim\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Aganim\\Source\\Repos\\AlexPrograms\\API2.0\\MagicVilla_VillaAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pasha\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Aganim\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Users\\pasha\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4239,7 +4240,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\pasha\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
