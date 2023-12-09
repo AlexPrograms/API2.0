@@ -4,6 +4,7 @@ using MagicVilla_VillaAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagicVilla_VillaAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231209184139_SeedCarsTable")]
+    partial class SeedCarsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace MagicVilla_VillaAPI.Migrations
                             Id = 1,
                             Brand = "Rolls Royce",
                             CountryOfOrigin = "England",
-                            CreatedDate = new DateTime(2023, 12, 9, 19, 44, 53, 282, DateTimeKind.Local).AddTicks(6743),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "You already know what it is",
                             MaxSpeed = 300,
                             Model = "Phantom",
@@ -76,7 +79,7 @@ namespace MagicVilla_VillaAPI.Migrations
                             Id = 2,
                             Brand = "Tesla",
                             CountryOfOrigin = "US",
-                            CreatedDate = new DateTime(2023, 12, 9, 19, 44, 53, 282, DateTimeKind.Local).AddTicks(6816),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "You already know what it is",
                             MaxSpeed = 200,
                             Model = "S",
@@ -87,7 +90,7 @@ namespace MagicVilla_VillaAPI.Migrations
                             Id = 3,
                             Brand = "S",
                             CountryOfOrigin = "England",
-                            CreatedDate = new DateTime(2023, 12, 9, 19, 44, 53, 282, DateTimeKind.Local).AddTicks(6820),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "You already know what it is",
                             MaxSpeed = 500,
                             Model = "Trash",
