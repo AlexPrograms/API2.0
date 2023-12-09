@@ -1,5 +1,6 @@
 ﻿using MagicVilla_VillaAPI.Data;
 using MagicVilla_VillaAPI.Logging;
+using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.DTO;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -11,20 +12,25 @@ namespace MagicVilla_VillaAPI.Controllers;
 [Route("api/CarAPI")]
 public class CarAPIController : Controller
 {
-        private readonly ILogging _logger;
+    private readonly ApplicationDbContext _db;
+    public CarAPIController(ApplicationDbContext db)
+    {
+        _db = db;
+    }
+  /*  private readonly ILogging _logger;
 
     public CarAPIController(ILogging logger)
     {
         _logger = logger;
-    }
+    }*/
     
     
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<CarDTO>> GetCars()
     {
-        _logger.Log("Getting all cars","");
-        return Ok(CarStore.carList);
+        //_logger.Log("Getting all cars","");
+        return Ok(_db.Cars.ToList());
     }
     
     [HttpGet("{id:int}", Name = "GetCar")]
@@ -35,11 +41,11 @@ public class CarAPIController : Controller
     {
         if (id==0)
         {
-            _logger.Log("Get car error with id" + id, "error");
+            //_logger.Log("Get car error with id" + id, "error");
             return BadRequest();
         }
 
-        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        var car = _db.Cars.FirstOrDefault(u => u.Id == id);
         if (car==null)
         {
             return NotFound();
@@ -55,7 +61,7 @@ public class CarAPIController : Controller
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public ActionResult<CarDTO> CreateVilla([FromBody]CarDTO carDto)
     {
-        if (CarStore.carList.FirstOrDefault(u=>u.Model.ToLower()==carDto.Model.ToLower()) != null)
+        if (_db.Cars.FirstOrDefault(u=>u.Model.ToLower()==carDto.Model.ToLower()) != null)
         {
             ModelState.AddModelError("CustomError","Villa already Exists!");
             return BadRequest(ModelState);
@@ -70,8 +76,19 @@ public class CarAPIController : Controller
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        carDto.Id = CarStore.carList.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
-        CarStore.carList.Add(carDto);
+        Car model = new Car()
+        {
+            Id = carDto.Id,
+            Model = carDto.Model,
+            Brand = carDto.Brand,
+            Price = carDto.Price,
+            Description = carDto.Description,
+            MaxSpeed = carDto.MaxSpeed,
+            CountryOfOrigin = carDto.CountryOfOrigin,
+        };
+
+        _db.Cars.Add(model);
+        _db.SaveChanges();
         return CreatedAtRoute("GetCar", new { id = carDto.Id }, carDto);
     }
 
@@ -85,13 +102,14 @@ public class CarAPIController : Controller
         {
             return BadRequest();
         }
-        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        var car = _db.Cars.FirstOrDefault(u => u.Id == id);
         if (car == null)
         {
             return NotFound();
         }
 
-        CarStore.carList.Remove(car);
+        _db.Cars.Remove(car);
+        _db.SaveChanges();
         return NoContent();
     }
 
@@ -105,10 +123,23 @@ public class CarAPIController : Controller
         {
             return BadRequest();
         }
-        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
-        car.Model = carDto.Model;
-        car.Brand = carDto.Brand;
-        car.Price = carDto.Price;
+        /*        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+                car.Model = carDto.Model;
+                car.Brand = carDto.Brand;
+                car.Price = carDto.Price;*/
+
+        Car model = new Car()
+        {
+            Id = carDto.Id,
+            Model = carDto.Model,
+            Brand = carDto.Brand,
+            Price = carDto.Price,
+            Description = carDto.Description,
+            MaxSpeed = carDto.MaxSpeed,
+            CountryOfOrigin = carDto.CountryOfOrigin,
+        };
+        _db.Cars.Update(model);
+        _db.SaveChanges();
         return NoContent();
     }
 
@@ -122,17 +153,41 @@ public class CarAPIController : Controller
             return BadRequest();
         }
         
-        var car = CarStore.carList.FirstOrDefault(u => u.Id == id);
+        var car = _db.Cars.FirstOrDefault(u => u.Id == id);
+
+        CarDTO carDTO = new()
+        {
+            Id = car.Id,
+            Model = car.Model,
+            Brand = car.Brand,
+            Price = (int)car.Price,
+            Description = car.Description,
+            MaxSpeed = car.MaxSpeed,
+            CountryOfOrigin = car.CountryOfOrigin,
+        };
+
         if (car == null)
         {
             return BadRequest();
         }
         
-        patchDTO.ApplyTo(car, ModelState);
+        patchDTO.ApplyTo(carDTO, ModelState);
+        Car model = new Car()
+        {
+            Id = carDTO.Id,
+            Model = carDTO.Model,
+            Brand = carDTO.Brand,
+            Price = carDTO.Price,
+            Description = carDTO.Description,
+            MaxSpeed = carDTO.MaxSpeed,
+            CountryOfOrigin = carDTO.CountryOfOrigin,
+        };
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
+        _db.Cars.Update(model);
+        _db.SaveChanges();
 
         return NoContent();
     }
